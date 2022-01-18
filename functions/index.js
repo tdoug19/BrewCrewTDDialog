@@ -87,6 +87,17 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
 
   function addNewUser(agent){
     console.log('Write the database logging');
+    const db = admin.database();
+    const ref = db.ref();
+    const usersRef = ref.child('users');
+    usersRef.update(({Jerry: {age: 23}}), (error) => {
+                        
+      if(error) {
+        console.log('User not saved.' + error);
+      }
+    
+    });
+
 
     agent.add("Updated the db with a new User.");
   }
